@@ -1,0 +1,7 @@
+Reading uart.hex
+uart.hex loaded into memory
+Memory 5 bytes = 0x6f 0x00 0x00 0x0b 0x13
+VCD info: dumpfile uart.vcd opened for output.
+[1;31m
+Monitor: Timeout, Test LA (RTL) Failed
+[0m
