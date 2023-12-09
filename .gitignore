@@ -8,4 +8,5 @@
 testbench/counter_la_fir/gdb.debug/
 testbench/counter_la_fir/gdbwave.debug/
 .vscode
+*.log
 

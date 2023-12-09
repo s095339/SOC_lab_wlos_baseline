@@ -38,7 +38,7 @@ module uart_tb;
 	assign uart_tx = mprj_io[6];
 	assign mprj_io[5] = uart_rx;
 
-	always #12.5 clock <= (clock === 1'b0);
+	always #2.5 clock <= (clock === 1'b0);
 
 	initial begin
 		clock = 0;
@@ -144,7 +144,7 @@ module uart_tb;
 		$dumpvars(0, uart_tb);
 
 		// Repeat cycles of 1000 clock edges as needed to complete testbench
-		repeat (200) begin
+		repeat (2000) begin
 			repeat (1000) @(posedge clock);
 			// $display("+1000 cycles");
 		end
@@ -157,21 +157,99 @@ module uart_tb;
 		$display("%c[0m",27);
 		$finish;
 	end
+	//test matmul
+	initial begin
 
+		wait(checkbits == 16'h003E);
+		$display("Call function matmul() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);
+		wait(checkbits == 16'h0044);
+		$display("Call function matmul() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);
+		wait(checkbits == 16'h004A);
+		$display("Call function matmul() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);
+		wait(checkbits == 16'h0050);
+		$display("Call function matmul() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);		
+		$display("================");
+		$display("Matmul   passed!");
+		$display("================");
+		#10000;
+		
+	end
+
+	//test FIR
+	initial begin
+
+		wait(checkbits == 16'h0000);
+		$display("Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);
+		wait(checkbits == 16'hFFF6);
+		$display("Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);
+		wait(checkbits == 16'hFFE3);
+		$display("Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);
+		wait(checkbits == 16'hFFE7);
+		$display("Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);		
+		wait(checkbits == 16'h0023);
+		$display("Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);		
+		wait(checkbits == 16'h009E);
+		$display("Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);		
+		wait(checkbits == 16'h0151);
+		$display("Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);		
+		wait(checkbits == 16'h021B);
+		$display("Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);		
+		wait(checkbits == 16'h02DC);
+		$display("Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);		
+		wait(checkbits == 16'h0393);
+		$display("Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);		
+		wait(checkbits == 16'h044A);
+		$display("Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);		
+		
+		
+		$display("================");
+		$display("FIR   passed!");
+		$display("================");
+		#10000;
+		
+	end
+
+	//qs
+	initial begin
+		//wait(checkbits == 16'hAB40);
+		//$display("LA Test 1 started");
+		//wait(checkbits == 16'hAB41);
+
+		wait(checkbits == 16'd40);
+		$display("Call function qsort() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);
+		wait(checkbits == 16'd893);
+		$display("Call function qsort() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);
+		wait(checkbits == 16'd2541);
+		$display("Call function qsort() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);
+		wait(checkbits == 16'd2669);
+		$display("Call function qsort() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x%x", checkbits);		
+
+		$display("================");
+		$display("Qsort    passed!");
+		$display("================");
+		//wait(checkbits == 16'hAB51);
+		//$display("LA Test 2 passed");
+		#10000;
+		
+	end
 	initial begin
 		wait(checkbits == 16'hAB40);
 		$display("LA Test 1 started");
 
-		send_data_2;
+		//send_data_2;
+
+
+
+
 		//wait(checkbits == 61);
 		//send_data_1;
 		//wait(checkbits == 15);
 		//#10000;
 		//$display("LA Test 1 passed");
 
-		//wait(checkbits == 16'hAB51);
-		//$display("LA Test 1 passed");
-		//$finish;		
+		wait(checkbits == 16'hAB51);
+		$display("LA Test 1 passed");
+		$finish;		
 	end
 
 	task send_data_1;begin
