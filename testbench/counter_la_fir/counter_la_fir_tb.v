@@ -32,7 +32,7 @@ module counter_la_fir_tb;
 	assign checkbits  = mprj_io[31:16];
 	assign uart_tx = mprj_io[6];
 
-	always #12.5 clock <= (clock === 1'b0);
+	always #2.5 clock <= (clock === 1'b0);
 
 	initial begin
 		clock = 0;

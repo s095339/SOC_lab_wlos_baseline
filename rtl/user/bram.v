@@ -15,7 +15,7 @@ module bram(
     input   wire    [31:0]   A0;
 
     // Define the size of BRAM
-    parameter N = 12;
+    parameter N = 14;
     (* ram_style = "block" *) reg [31:0] RAM[0:2**N-1];
 
 
