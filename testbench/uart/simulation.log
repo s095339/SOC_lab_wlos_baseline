@@ -4,6 +4,36 @@ Memory 5 bytes = 0x6f 0x00 0x00 0x0b 0x13
 VCD info: dumpfile uart.vcd opened for output.
 Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0x0000
 LA Test 1 started
+tx data bit index 0: 1
+tx data bit index 1: 0
+tx data bit index 2: 1
+tx data bit index 3: 1
+tx data bit index 4: 1
+tx data bit index 5: 1
+tx data bit index 6: 0
+tx data bit index 7: 0
+tx complete 2
+***********
+*uart pass*
+***********
+tx data bit index 0: 0
+tx data bit index 1: 1
+rx data bit index 0: 1
+rx data bit index 1: 0
+tx data bit index 2: 0
+tx data bit index 3: 1
+rx data bit index 2: 1
+rx data bit index 3: 1
+tx data bit index 4: 0
+tx data bit index 5: 0
+rx data bit index 4: 1
+rx data bit index 5: 1
+tx data bit index 6: 0
+tx data bit index 7: 0
+rx data bit index 6: 0
+rx data bit index 7: 0
+tx complete 2
+recevied word  61
 Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0xfff6
 Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0xffe3
 Call function fir() in User Project BRAM (mprjram, 0x38000000) return value passed, 0xffe7
@@ -31,4 +61,4 @@ Call function matmul() in User Project BRAM (mprjram, 0x38000000) return value p
 ================
 Matmul   passed!
 ================
-LA Test 1 passed
+uart end character received
