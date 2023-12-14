@@ -33,4 +33,7 @@ int A[SIZES] = {893, 40, 3233, 4267, 2669, 2541, 9073, 6023, 5681, 4622};
 
 #define TESTPRINT(data)  (*(volatile int32_t*)0x30000090) = data
 
+//uart end
+int endflag = 0;
+
 #endif

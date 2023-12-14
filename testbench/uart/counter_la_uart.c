@@ -22,7 +22,6 @@
 #include <irq_vex.h>
 #endif
 
-#define USER_PROJ_IRQ0_EN //不確定要不要加這個
 
 extern void uart_write();
 extern void uart_write_char();
@@ -34,6 +33,7 @@ extern int uart_read();
 extern int* qsort();
 extern int* matmul();
 extern int* fir();
+extern void ckend();
 // --------------------------------------------------------
 
 /*
@@ -132,7 +132,14 @@ void main()
 
 	// Configure LA probes from [63:32] as inputs to disable counter write
 	reg_la1_oenb = reg_la1_iena = 0x00000000;    
-
+#ifdef USER_PROJ_IRQ0_EN	
+	// unmask USER_IRQ_0_INTERRUPT
+	mask = irq_getmask();
+	mask |= 1 << USER_IRQ_0_INTERRUPT; // USER_IRQ_0_INTERRUPT = 2
+	irq_setmask(mask);
+	// enable user_irq_0_ev_enable
+	user_irq_0_ev_enable_write(1);	
+#endif
 
 	/*while (1) {
 		if (reg_la0_data_in > 0x1F4) {
@@ -184,16 +191,9 @@ void main()
 	reg_mprj_datal = *(tmp+1) << 16;
 	reg_mprj_datal = *(tmp+2) << 16;
 	reg_mprj_datal = *(tmp+3) << 16;
-
+	ckend();
 	reg_mprj_datal = 0xAB510000;
 
-#ifdef USER_PROJ_IRQ0_EN	
-	// unmask USER_IRQ_0_INTERRUPT
-	mask = irq_getmask();
-	mask |= 1 << USER_IRQ_0_INTERRUPT; // USER_IRQ_0_INTERRUPT = 2
-	irq_setmask(mask);
-	// enable user_irq_0_ev_enable
-	user_irq_0_ev_enable_write(1);	
-#endif
+
 }
 

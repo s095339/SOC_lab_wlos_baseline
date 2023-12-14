@@ -38,7 +38,7 @@ module uart_tb;
 	assign uart_tx = mprj_io[6];
 	assign mprj_io[5] = uart_rx;
 
-	always #2.5 clock <= (clock === 1'b0);
+	always #12.5 clock <= (clock === 1'b0);
 
 	initial begin
 		clock = 0;
@@ -236,19 +236,19 @@ module uart_tb;
 		wait(checkbits == 16'hAB40);
 		$display("LA Test 1 started");
 
-		//send_data_2;
+		send_data_2;
 
 
 
 
-		//wait(checkbits == 61);
-		//send_data_1;
-		//wait(checkbits == 15);
-		//#10000;
-		//$display("LA Test 1 passed");
-
+		wait(checkbits == 16'h003D);
+		#10000;
+		$display("***********");
+		$display("*uart pass*");
+		$display("***********");
+		send_end_data;
 		wait(checkbits == 16'hAB51);
-		$display("LA Test 1 passed");
+		$display("uart end character received");
 		$finish;		
 	end
 
@@ -268,6 +268,18 @@ module uart_tb;
 		@(posedge clock);
 		tx_start = 1;
 		tx_data = 61;
+		
+		#50;
+		wait(!tx_busy);
+		tx_start = 0;
+		$display("tx complete 2");
+		
+	end endtask
+
+	task send_end_data;begin
+		@(posedge clock);
+		tx_start = 1;
+		tx_data = 8'h0a;
 		
 		#50;
 		wait(!tx_busy);
